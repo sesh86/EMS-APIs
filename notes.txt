@@ -1,0 +1,25 @@
+install nodemon & Concurrently in the root folder(not in client folder)
+=======================================================================
+npm i -s nodemon
+npm i -s concurrently
+
+add the following in the server's package.json
+
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "start": "node index.js",
+    "server": "nodemon index.js",
+    "client":"npm start --prefix client",
+    "dev":"concurrently \"npm run server\" \"npm run client\""
+  },
+
+Run the following in root folder(EMS) to run both client and server side service concurrently:
+
+npm run dev
+
+Today:
+======
+Created a new API to get a specific Enquiry
+Created a new component - UpdateEnquiry
+Created a new route - UpdateEnquiry/:id
+Called the new API created from the new component and displaying the same
