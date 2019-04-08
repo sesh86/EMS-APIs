@@ -124,6 +124,9 @@ app.post('/verify',cors(),function(req,res){
   console.log(req.body)
   res.send(jwt.verify(req.body.jwt, 'secret'));
 })
+app.get('/',cors(),function(req,res){
+	res.send('Hosted');
+})
 
 
 
