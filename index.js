@@ -1,17 +1,9 @@
 var mongoose=require('mongoose');
 const _app=require('./config.js');
 var cors=require('cors');
-var whitelist = ['http://localhost', 'http://example2.com']
-var corsOptions = {
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true)
-    } else {
-      callback(new Error('Not allowed by CORS'))
-    }
-  }
-}
 
+var whitelist = ['http://localhost', 'http://example2.com']
+corsOptions = { origin: true } 
 mongoose.connect('mongodb://'+_app.user+':'+_app.pwd+'@cluster0-shard-00-00-lemrd.mongodb.net:27017,cluster0-shard-00-01-lemrd.mongodb.net:27017,cluster0-shard-00-02-lemrd.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin',{useNewUrlParser: true});
 
 var user = mongoose.model('users', { name: String, email:String, password:String,role:String });
@@ -134,12 +126,11 @@ app.post('/verify',cors(corsOptions),function(req,res){
   console.log(req.body)
   res.send(jwt.verify(req.body.jwt, 'secret'));
 })
+
 app.get('/',cors(corsOptions),function(req,res){
 	res.send('Hosted');
 })
 
-
-
-app.listen(process.env.PORT||3000, function () {
+app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
